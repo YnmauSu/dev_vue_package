@@ -1,0 +1,412 @@
+@import "./theme";
+
+// 背景色
+@base-main-bg: #f0f5f6;
+
+// 禁用按钮
+@base-disabled-btn: #bbbbbb;
+@base-disabled-btn-bdr: #ebeef5;
+
+// 一级字体大小
+@base-txt-one: 14px;
+
+// 二级字体大小
+@base-txt-two: 16px;
+
+// 三级字体大小
+@base-txt-three: 18px;
+
+// 一级字体颜色
+@base-txtColor-one: #676767;
+
+// 二级字体颜色
+@base-txtColor-tow: #333333;
+
+// 三级字体颜色
+@base-txtColor-three: #666666;
+
+//默认字体颜色
+@base-default-color: #c3d0d7;
+
+@base-btn-txt-color: #ffffff;
+
+// 操作区域颜色
+@base-main-areaBg: #ffffff;
+
+// 边框颜色
+@base-bdr-color: #e6e6e6;
+
+// 表格总数行
+@base-table-sumBg: #ffffff;
+//表头背景色
+@base-table-bgColor: #f5f5f5;
+//表头框线颜色
+@base-table-bdColor: #eae7e7;
+
+// 错误字体颜色
+@base-error-color: #FF2A18;
+
+@base-link-color: #4965FF;
+
+// 侧边栏激活颜色
+@base-side-active: #feebd8;
+
+// 提示内容
+@base-tip-color: #ff6666;
+
+// 状态字体颜色
+@base-state-blueColor: #38aee4;
+@base-state-redColor: #fd3a31;
+@base-state-yellowColor: #fda618;
+@base-state-greenColor: #7ad477;
+
+a:focus,
+a:active {
+    outline: none;
+}
+
+a,
+a:focus,
+a:hover {
+    cursor: pointer;
+    color: inherit;
+    text-decoration: none;
+}
+
+.clearFix::after {
+    content: " ";
+    display: block;
+    clear: both;
+}
+
+.f-l {
+    float: left;
+}
+
+.f-r {
+    float: right;
+}
+
+.clearFix {
+    zoom: 1;
+}
+
+html,body {
+    width: 100%;
+    height: 100%;
+    background-color: @base-main-bg;
+}
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+}
+
+
+//下拉框、输入框边框样式
+.el-form-item.is-success .el-input__inner,  .el-form-item.is-success .el-textarea__inner  {
+    border-color: #c0c4cc;
+}
+//下拉框、输入框激活边框样式
+.el-form-item.is-success .el-input__inner:focus,.el-form-item.is-success .el-textarea__inner:focus {
+    border-color: #409EFF;
+}
+
+
+// 有树形组件的表格样式
+.ui-main-module-table {
+    overflow: auto;
+    position: relative;
+    text-align: left;
+    //padding-left: 200px;
+
+    .ui-tree-menu {
+        //width: 500px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: RGB(249,249,249);
+        border: 1px solid @base-bdr-color;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .el-table {
+        float: left;
+    }
+}
+
+// 树形侧变栏
+.ui-tree-menu {
+
+    .el-tree {
+        background-color: #f9f9f9;
+    }
+
+    .el-tree-node__content {
+        height: 30px;
+        font-size: 14px;
+    }
+
+    // 高亮部分
+    .el-tree-node__content {
+        border-left: 4px solid transparent;
+
+        &:hover {
+            background-color: #ffffff;
+        }
+    }
+    .el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+        background-color: #ffffff;
+        border-left: 4px solid #b7eaf6;
+        box-sizing: border-box;
+    }
+}
+
+
+// 新增员工
+.ui-area-item {
+    padding: 20px 30px;
+    .el-form-item {
+        float: left;
+        //margin-bottom: 10px!important;
+
+        &:nth-child(2n - 1) {
+            margin-right: 160px;
+        }
+
+        .el-input, .el-select, .ui-layout_op {
+            width: 200px;
+        }
+    }
+}
+.ui-add_staff {
+    .el-form {
+        overflow: hidden;
+    }
+}
+
+// 编辑table输入框样式
+.ui-table_table {
+    .el-table--enable-row-transition .el-table__body td {
+        padding: 0;
+        text-align: left;
+        .cell {
+            padding: 0;
+        }
+        input {
+            border: 0 none;
+            border-radius: 0;
+        }
+        .el-range-editor--medium.el-input__inner {
+            border: 0 none;
+            //padding: 0;
+            //margin: 0;
+            border-radius: 0;
+        }
+    }
+}
+
+// 表格组件form类型样式
+.ui-table_form {
+    .el-table--enable-row-transition .el-table__body td {
+        //padding: 0;
+        text-align: center;
+        .cell {
+            //padding: 0;
+        }
+        input {
+            //border: 0 none;
+            border-radius: 0;
+        }
+    }
+    .el-input, .el-select {
+        width: 100%!important;
+    }
+}
+
+.el-form-item {
+    margin-bottom: 10px;
+}
+
+// 联系部门树形接口
+.ui-content_tree {
+    .el-tree-node__content {
+        height: 30px!important;
+    }
+}
+
+//预览员工样式
+.el-table td, .el-table th{
+    text-align: center;
+}
+.el-table th{
+    box-sizing: border-box;
+    color: @base-txtColor-tow;
+    font-weight: 400;
+    background:@base-table-bgColor;
+    border-right: 1px @base-table-bdColor solid;
+ }
+
+//.el-table__footer-wrapper tbody td {
+//    background: #FFFFFF;
+//}
+
+    //激活小箭头
+.el-menu-item {
+    position: relative;
+    .el-icon-caret-left:before {
+        content: "\E60A";
+        color: #ffffff;
+        position: absolute;
+        right: -6px;
+        top: 11px;
+    }
+}
+
+
+// 审核流程 —— 流程下拉
+.ui-flow_path_set-select {
+    margin-top: -10px!important;
+}
+
+// 流程类型弹框
+.ui-dialog_layout-type2 {
+    .ui-type2_content {
+        text-align: left;
+
+        .el-form-item {
+            float: left;
+        }
+        
+        .el-input, .el-select {
+            width: 200px;
+        }
+    }
+}
+//表格间距
+.el-table td, .el-table th {
+    padding: 8px 0;
+}
+
+//状态字体颜色
+.ui-state-color2 {
+    color: @base-state-yellowColor;
+}
+.ui-state-color3 {
+    color: @base-state-redColor;
+}
+.ui-state-color4 {
+    color: @base-state-blueColor;
+}
+.ui-state-color5 {
+    color: @base-state-greenColor;
+}
+
+.ui-state-color7 {
+    color: @base-state-blueColor;
+}
+//费用审批字状态颜色
+.ui-audit-color3 {
+    color: @base-state-redColor;
+}
+.ui-audit-color4 {
+    color: @base-state-greenColor;
+}
+.ui-audit-color7 {
+    color: @base-state-blueColor;
+}
+//费用报销状态颜色
+.ui-expense-color1 {
+    color: @base-state-blueColor;
+}
+.ui-expense-color2 {
+    color: @base-state-yellowColor;
+}
+.ui-expense-color3 {
+    color: @base-state-redColor;
+}
+.ui-expense-color4 {
+    color: @base-state-greenColor;
+}
+.ui-expense-color5 {
+    color: @base-state-greenColor;
+}
+.ui-expense-color6 {
+    color: @base-state-greenColor;
+}
+.ui-expense-color7 {
+    color: @base-state-blueColor;
+}
+// 多选框TAG字段
+.el-tag--info {
+    max-width: 70px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    top: 3px;
+}
+.is-required {
+    .el-form-item__label {
+        &::before {
+            content: '*';
+            color: #f56c6c;
+            margin-right: 4px;
+            position: absolute;
+            margin-left: -8px;
+        }
+    }
+}
+
+.ui-hint-color {
+    color: #ff6666;
+    font-size: 16px;
+}
+
+//icon开启关闭按钮
+.icon_switch {
+    font-size: 26px!important;
+}
+
+.icon_switch_off {
+    color: #999999;
+}
+
+//人事考勤部门查询搜索框样式
+.ui-search-input {
+    .el-input-group>.el-input__inner {
+        vertical-align: baseline;
+        display: inherit;
+    }
+}
+
+// 公告新增
+.w-e-text-container, .w-e-menu {
+    //z-index: 1!important;
+}
+
+.el-upload {
+    display: block;
+    width: 100%;
+}
+
+.ui-diy_upload .el-upload {
+    display: inline-block;
+    width: unset;
+}
+
+.ui-diy_upload .el-upload--text {
+    //height: 100px;
+    display: inline-block;
+}
+
+.ui-add_video .el-form-item__error {
+    position: relative;
+}
+
+
+.ui-video_dialog .el-dialog__body {
+    //background: #000000;
+}

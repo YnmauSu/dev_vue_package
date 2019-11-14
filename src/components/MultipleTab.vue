@@ -3,7 +3,7 @@
         <ul class="clearFix">
             <li class="ui-multiple_tab-item" v-for="item in tabLabel">
                 <span @click="handleToggleRouter(item)" :class="item.index === navIndex && 'ui-link'">{{item.name}}</span>
-                <i class="el-icon-close" @click="handleRemoveLabel(item.path)"></i>
+                <i class="icon-guanbi1" @click="handleRemoveLabel(item.path)"></i>
             </li>
         </ul>
         <div class="ui-close_other" @click="handleCloseOtherLabel">
@@ -137,6 +137,7 @@
             span.ui-link + i {
                 display: block!important;
                 right: 5px;
+                background: none;
             }
         }
         .ui-close_other {

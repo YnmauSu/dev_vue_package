@@ -3,21 +3,60 @@ import Store from '@/store';
 const config = {
     navList: [
         {
-            name: '订单管理',
+            name: '管理设置',
             path: '',
             icon: 'icon-shouyeguanli',
             children: [
                 {
-                    name: '预测单',
-                    path: '/',
+                    name: '管理员管理',
+                    path: '/user_manage',
                 },
                 {
-                    name: '建议单',
-                    path: '/'
+                    name: '角色管理',
+                    path: '/role_manage'
                 },
                 {
-                    name: '备货单',
-                    path: '/'
+                    name: '资源管理',
+                    path: '/resource_manage'
+                }
+            ]
+        },
+        {
+            name: '用户管理',
+            path: '',
+            icon: 'icon-shouyeguanli',
+            children: [
+                // {
+                //     name: '用户管理',
+                //     path: '/user_manage',
+                // },
+                {
+                    name: '客户端管理',
+                    path: '/client_manage'
+                },
+                // {
+                //     name: '评论管理',
+                //     path: '/user_manage'
+                // },
+                // {
+                //     name: '等级设置',
+                //     path: '/user_manage'
+                // },
+                // {
+                //     name: '用户意见',
+                //     path: '/user_manage'
+                // },
+                {
+                    name: '视频分类',
+                    path: '/video_classify'
+                },
+                {
+                    name: '视频列表',
+                    path: '/video_list'
+                },
+                {
+                    name: '视频推广',
+                    path: '/spread_page'
                 }
             ]
         }

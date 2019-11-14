@@ -1,12 +1,12 @@
-
 import http from '@/http';
+import md5 from 'blueimp-md5';
 
-export function loginByUserName (userName, password) {
+export function loginByUserName (params = {}) {
     const data = {
-        user_name: userName,
-        pwd: password
+        ...params,
+        pwd: md5(params.pwd)
     };
-    return http.postAjax('/login/userlogin', data);
+    return http.postAjax('/login/login/adminLogin', data);
 }
 
 export function loginOut (uid) {

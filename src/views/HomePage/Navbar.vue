@@ -1,12 +1,12 @@
 <template>
     <div class="ui-nav-bar">
         <div class="user-info" v-show="!isCollapse">
-            <img :src="loginInfo.head_image_url?loginInfo.head_image_url:defaultImg" alt="">
+            <img :src="loginInfo.head_image_url ? loginInfo.head_image_url : defaultImg" alt="">
             <p>{{loginInfo.user_name}}</p>
         </div>
         <div class="ui-system-info">
             <span @click="isCollapse = !isCollapse" :style="{ marginRight: isCollapse ? '17px' : '' }">
-                <i :class="isCollapse ? 'icon-zhankai' : 'icon-shouqi'" style="color: #666666"></i>
+                <i :class="isCollapse ? 'icon-qiehuan' : 'icon-qiehuan1'"></i>
             </span>
         </div>
         <el-menu
@@ -30,15 +30,19 @@
                         :key="inx">
                     <el-menu-item
                             v-if="!itemChild.children || !itemChild.children.length"
-                            :index="(index + 1) + '-' + (inx + 1)"><span class="menu-item-dot"><i class="normal-dot" :class="navIndex === (index + 1) + '-' + (inx + 1) ? 'active-dot' : ''"></i></span><span>{{itemChild.name}}</span></el-menu-item>
+                            :index="(index + 1) + '-' + (inx + 1)"><span class="menu-item-dot"><i class="normal-dot" :class="navIndex === (index + 1) + '-' + (inx + 1) ? 'active-dot' : ''"></i></span><span class="ui-twoChild">{{itemChild.name}}</span></el-menu-item>
                     <el-submenu
                             v-if="itemChild.children && itemChild.children.length"
                             :index="(index + 1) + '-' + (inx + 1)">
-                        <template slot="title">{{itemChild.name}}</template>
+                        <template slot="title"><span class="menu-item-dot"><i class="normal-dot" :class="autoActiveParentNav((index + 1) + '-' + (inx + 1)) ? 'active-dot' : ''"></i></span><span :class="autoActiveParentNav((index + 1) + '-' + (inx + 1)) ? 'active ui-twoChild' : 'ui-twoChild'">{{itemChild.name}}</span>
+                        </template>
                         <el-menu-item
                                 v-for="(itemChildren, i) in itemChild.children"
                                 :key="i"
-                                :index="(index + 1) + '-' + (inx + 1) + '-' + (i + 1)"><span>{{itemChildren.name}}</span></el-menu-item>
+                                :index="(index + 1) + '-' + (inx + 1) + '-' + (i + 1)">
+                            <span class="menu-item-dot"><i class="normal-dot" :class="autoActiveParentNav((index + 1) + '-' + (inx + 1) + '-' + (i + 1)) ? 'active-dot' : ''"></i></span><span :class="autoActiveParentNav((index + 1) + '-' + (inx + 1) + '-' + (i + 1)) ? 'active' : ''"></span>
+                            <span class="ui-threeChild">{{itemChildren.name}}</span>
+                        </el-menu-item>
                     </el-submenu>
                 </el-menu-item-group>
             </el-submenu>
@@ -117,6 +121,7 @@
         },
         watch: {
             isCollapse(val) {
+                this.$store.state.collapseChange = val;
                 let view = document.querySelector('.ui-content');
                 if (val) {
                     setTimeout(() => {

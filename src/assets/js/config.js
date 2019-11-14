@@ -1,8 +1,75 @@
+import AUTHORITY_BUTTON from '@/authority/button_config'
+
 const HEIGHTINFO = {
     NAV: 0,
     WINDOW_HEIGHT: window.innerHeight,
     TAP_HEIGHT: 48,
     TABLE_MARGIN: 35
+};
+
+const RULE_CONFIG = {
+
+    // 手机
+    phone: {
+        pattern: /^[0-9]{11}$/,
+        trigger: 'blur',
+        message: '输入有误！'
+    },
+
+    // 纯数字
+    number: {
+        pattern: /^[0-9]+$/,
+        trigger: 'blur',
+        message: '输入有误！'
+    },
+
+    // 身份证
+    idNumber: {
+        pattern: /^[0-9A-Za-z]+$/,
+        trigger: 'blur',
+        message: '输入有误！'
+    },
+
+    // 邮箱
+    email: {
+        pattern: /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/,
+        trigger: 'blur',
+        message: '输入有误！'
+    },
+
+    // 必填
+    requiredBlur: [
+        {
+            required: true,
+            trigger: 'blur',
+            message: '带*号不能为空！'
+        },
+        {
+            pattern: /[^\s]+/,
+            trigger: 'blur',
+            message: '输入有误！'
+        }
+    ],
+
+    // 必填
+    requiredChange: {
+        required: true,
+        trigger: 'change',
+        message: '带*号不能为空！'
+    },
+
+    image: ['.png', '.jpeg', '.gif', '.jpg'],
+
+    size: {
+        pattern: /^\d+\*\d+\*\d+$/ig,
+        message: '输入有误！',
+        trigger: 'blur'
+    },
+    password: {
+        pattern: /^(?![a-zA-Z]+$)(?![A-Z0-9]+$)(?![A-Z\W_!@#$%^&*`~()-+=]+$)(?![a-z0-9]+$)(?![a-z\W_!@#$%^&*`~()-+=]+$)(?![0-9\W_!@#$%^&*`~()-+=]+$)[a-zA-Z0-9\W_!@#$%^&*`~()-+=]{6,15}$/,
+        message: '密码必须包含大写字母、小写字母和数字',
+        trigger: 'blur'
+    }
 };
 
 const CONFIG = {
@@ -58,8 +125,30 @@ const CONFIG = {
     FIP_PATH: process.env.NODE_ENV == 'production' ? window.location.origin : 'http://192.168.9.126:8871',
 
     // 搜索框宽度
-    SEARCH_DATE_WIDTH: '438'
+    SEARCH_DATE_WIDTH: '438',
 
+    // 权限控制按钮
+    AUTHORITY_BUTTON,
+
+    // 规则
+    RULE_CONFIG,
+
+    // 文件格式
+    FILE_FORMAT: {
+        VIDEO_FORMAT: ['.MP4', '.MKV', '.AVI', '.WMV', '.HEVC', '.MKV', '.GP', '.FLV', '.SWF', '.HTML5', '.M4V', '.MOV', '.ASF', '.DV', '.VOB', '.OGV', '.YouTube', '.ASF', '.RM', '.MOD', '.TOD'],
+
+        EXCEL_FORMAT: ['.xls', '.xlsx'],
+
+        ZIP_FORMAT: ['.zip', '.rar'],
+
+        IMAGE_FORMAT: ['.jpg', '.png', '.jpeg', '.gif'],
+
+        TXT_FORMAT: ['.txt', '.text'],
+
+        PDF_FORMAT: ['.pdf'],
+
+        WORD_FORMAT: ['.doc', '.docx']
+    },
 };
 
 export default CONFIG;

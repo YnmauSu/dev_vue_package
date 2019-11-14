@@ -1,19 +1,32 @@
 <template>
     <section class="s-main">
         <MultipleTab></MultipleTab>
-        <transition name='fade' mode='out-in'>
-            <router-view :key="key"></router-view>
-        </transition>
+        <keep-alive :include="keepAlive">
+            <router-view></router-view>
+        </keep-alive>
     </section>
 </template>
 
 <script>
+    import { mapGetters } from 'vuex'
+    import CONFIG from '@/assets/js/config'
     export default {
         name: "Main",
-        computed: {
-            key () {
-                return this.$route.name !== undefined ? this.$route.name + +new Date() : this.$route + +new Date();
+        data() {
+            return {
+                isInit: false
             }
+        },
+        computed: {
+            ...mapGetters(['tabLabel']),
+            key() {
+                return this.$route.path !== undefined ? this.$route.path.replace('/', '') : this.$route;
+            },
+            keepAlive() {
+                return this.tabLabel.map(item => item.path.replace('/', ''));
+            }
+        },
+        mounted() {
         }
     }
 </script>

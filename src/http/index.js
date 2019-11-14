@@ -100,8 +100,9 @@ http.getAjax = function (url, params) {
 };
 
 http.postAjax = function (url, params) {
-    if (getSessionStorage('userInfo')) {
-        params.user_id = JSON.parse(getSessionStorage('userInfo')).uid;
+    // params.operator_id = JSON.parse(getSessionStorage('user_info')).user_id
+    if (getSessionStorage('user_info')) {
+        params.operator_id = JSON.parse(getSessionStorage('user_info')).user_id;
     }
     url = url.toLowerCase();
     if (process.env.NODE_ENV == 'production') {

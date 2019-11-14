@@ -1,5 +1,5 @@
 <template>
-    <div class="ui-default_template" :style="{height: height}" :class="className">
+    <div class="ui-default_template" :style="{height: height, backgroundColor: color}" :class="className">
         <slot></slot>
     </div>
 </template>
@@ -12,6 +12,10 @@
             className: {
                 type: String,
                 default: ''
+            },
+            color: {
+                type: String,
+                default: '#FFFFFF'
             }
         },
         data() {

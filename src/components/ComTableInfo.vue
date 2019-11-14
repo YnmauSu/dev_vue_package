@@ -130,6 +130,8 @@
     }
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+    /deep/ .el-table__empty-block {
+        width: 100%!important;
+    }
 </style>

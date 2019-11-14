@@ -6,111 +6,133 @@ import NotAuthority from '../views/NotAuthority'
 import * as storage from '@/utils/storage'
 import CONFIG from '../assets/js/config'
 import { getUserInfo } from '@/api/login'
-import { getAddressModelParams } from '../services/index'
 import configFn from './routerConfig'
 
-import HomePage from '../views/HomePage/HomePage';
+import LoginLayout from '../views/login/Layout'
+import LoginHomePage from '../views/login/module_page/LoginHomePage'
+
+// 用户管理
+import UserManage from '../views/HomePage/UserManage/UserManage';
+
+// 角色管理
+import RoleManage from '../views/HomePage/ManageSettle/RoleManage'
+
+// 资源管理
+import ResourceManage from '../views/HomePage/ManageSettle/ResourceManage'
+
+// 客户端管理
+import ClientManage from '../views/HomePage/UserManage/ClientManage'
+
+// 视频分类
+import VideoClassify from '../views/HomePage/TempModule/VideoClassify'
+
+// 视频列表
+import VideoModule from '../views/HomePage/TempModule/VideoModule'
+
+// 推广
+import SpreadPage from '../views/HomePage/TempModule/SpreadPage'
 
 Vue.use(Router);
 
 const router =  new Router({
     routes: [
         {
+            path: '/login',
+            name: '登录首页',
+            component: LoginLayout,
+            redirect: '/home_page',
+            children: [
+                {
+                    name: '首页',
+                    path: '/home_page',
+                    component: LoginHomePage
+                }
+            ]
+        },
+        {
             path: '/home',
             name: 'home',
             component: Layout,
-            redirect: '/hello',
+            redirect: '/user_manage',
             children: [
                 {
-                    path: '/hello',
-                    name: 'hello',
-                    component: HomePage,
+                    name: '用户管理',
+                    path: '/user_manage',
+                    component: UserManage
                 },
                 {
-                    path: '/notAuthority',
-                    name: '无权限界面',
-                    component: NotAuthority
+                    name: '角色管理',
+                    path: '/role_manage',
+                    component: RoleManage
+                },
+                {
+                    name: '资源管理',
+                    path: '/resource_manage',
+                    component: ResourceManage
+                },
+                {
+                    name: '客户端管理',
+                    path: '/client_manage',
+                    component: ClientManage
+                },
+                {
+                    name: '视频分类',
+                    path: '/video_classify',
+                    component: VideoClassify
+                },
+                {
+                    name: '视频列表',
+                    path: '/video_list',
+                    component: VideoModule
+                },
+                {
+                    name: '视频推广',
+                    path: '/spread_page',
+                    component: SpreadPage
                 }
             ]
         },
         {
             path: '*',
-            redirect: '/home'
+            redirect: '/login'
         }
     ]
 });
 
-let isFirstRequset = false;
+let isFirst = true;
 
 router.beforeEach((to, from, next) => {
     const path = to.path.replace(/\/$/, '');
-    const isLogin = storage.getSessionStorage('userInfo');
+    const isLogin = storage.getSessionStorage('user_info');
+    if (!isLogin && to.path !== '/home_page') {
+        return next({
+            path: '/home_page'
+        })
+    } else if (isFirst) {
 
-    // 获取当前地址参数
-    const queryParams = getAddressModelParams();
+        isFirst = false;
 
-    // 判断是否第一次进入
-    if (!isLogin && !isFirstRequset) {
+        // 获取默认菜单索引
+        let firstPath = '/user_manage';
+        let firstInx = Store.getters.permitPath.indexOf(firstPath) > -1 ? configFn.getRouteIndex(firstPath) : configFn.getRouteIndex(firstPath);
+        //
+        // 获取默认菜单信息
+        let firstNav = configFn.navJumpFn(firstInx);
 
-        // 如果没有登录信息的话在这里调下初始化接口，查询登录信息后保存
-        return new Promise(resolve => {
-            // getUserInfo({
-            //     access_token: queryParams['access_token']
-            // }).then(({ data }) => {
-            //     if (process.env.NODE_ENV == 'production') {
-            //         CONFIG.HOME_PATH = data.data.path;
-            //     }
-            //     Store.commit('SAVE_LOGIN_INFO', data.data);
-            //     Store.commit('SAVE_PERMIT_PATH_INFO', data.data.permissions);
-            //     Store.commit('SAVE_PERMIT_RESOURCE_INFO', data.data.permissions);
-            //     resolve(1)
-            // });
-            resolve(1)
-        }).then(( data ) => {
-            isFirstRequset = true;
-            if (data) {
-
-                // 判断是否无资源
-                // if (!Store.getters.permitPath.length) {
-                //     return next({
-                //         path: '/notAuthority'
-                //     })
-                // }
-
-                // // 获取默认菜单索引
-                // let firstInx = Store.getters.permitPath.indexOf('/supplier_add') > -1 ? configFn.getRouteIndex('/supplier_add') : '1-1';
-                //
-                // // 获取默认菜单信息
-                // let firstNav = configFn.navJumpFn(firstInx);
-                //
-                // // 跳转
-                // next({
-                //     path: firstNav.path
-                // });
-                //
-                // // 保存到多页签
-                // Store.commit('SAVE_TAB_LABELS', {
-                //     path: firstNav.path,
-                //     name: firstNav.name,
-                //     index: firstInx
-                // });
-                //
-                // // 激活菜单
-                // Store.commit('SAVE_NAV_INDEX', firstInx)
-                next();
-            }
+        // 跳转
+        next({
+            path: firstNav.path
         });
-    } else if (isLogin || isFirstRequset) {
 
-        // 权限拦截
-        // let isAuthority = Store.getters.permitPath;
-        // if (isAuthority.indexOf(path) === -1 && path !== '/notAuthority') {
-        //     return next({
-        //         path: '/notAuthority'
-        //     })
-        // }
+        // 保存到多页签
+        Store.commit('SAVE_TAB_LABELS', {
+            path: firstNav.path,
+            name: firstNav.name,
+            index: firstInx
+        });
 
-        next();
+        // 激活菜单
+        Store.commit('SAVE_NAV_INDEX', firstInx);
     } else {
         next();
     }

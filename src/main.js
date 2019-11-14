@@ -10,6 +10,7 @@ import * as Storage from './utils/storage';
 import mock from './mock';
 import 'element-ui/lib/theme-chalk/index.css';
 import '@/assets/css/index.css';
+import '@/assets/css/common.css';
 import '@/assets/css/135editor.css';
 import '@/assets/fonts/iconfont.css';
 import '@/assets/less/index.less';
@@ -40,9 +41,9 @@ window.getEleAttr = function (_e, parent) {
 };
 
 // 清除浏览器缓存，开发时可以注释
-window.addEventListener("unload", function(event) {
-    Storage.clearSessionStorage();
-});
+// window.addEventListener("unload", function(event) {
+//     Storage.clearSessionStorage();
+// });
 
 /* eslint-disable no-new */
 new Vue({
